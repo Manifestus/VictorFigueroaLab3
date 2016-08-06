@@ -1,0 +1,180 @@
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+string Suma(string primero, string segundo);
+void imprimir(char** matrix, int size);
+
+int main()
+{
+	int num1, num2, remainder;
+	int ntable = 0;
+	int maxtable = 0;
+	int table[0];
+	int correcttable[0];
+
+	int opc = 0;
+	cout << "Ingrese su opcion!" << endl; 
+	cout << "1.Labrinto! " << endl ;
+	cout << "2.Decimal a Binario!" << endl;
+	
+	int resp = 0;
+	
+		cin >> opc;
+		if(opc == 1)
+		{
+			int size = 0;
+			cout << "Ingrese el tamano de la matriz!" << endl;
+			cin >> size;
+			while(size < 10)
+			{
+			cout << "Tamano incorrecto! Vuelva ingresar el Tamano"; 
+			cin >> size;
+			}
+			char** matrix = new char*[size];
+
+			for(int i = 0; i < size; i++)
+			{
+				matrix[i] = new char[size];
+			}
+
+			cout << "Ingrese los valores!";
+			char lab;
+			int limit1 = 0, limit2 = 0;			
+			for(int i = 0; i < size; i++)
+			{
+				for(int j = 0 ; j < size; j++)
+					{
+						cout << "Ingrese valor en: " << i << " " << j <<endl;
+						cin >> lab;
+						if(lab == '2')
+						{
+							limit1++;	
+						}
+						if(lab == '3')
+						{
+							limit2++;
+						}
+
+						if(limit1 > 0 )
+						{
+								if(lab == '2' && limit2 < 0)
+								{
+										while(lab == '0')
+										{
+											cout<< "Variable ya definida vuelva a meter otro valor! "<< endl;
+											cin >> lab; 
+										}
+								} else 
+								{
+									lab = '0';
+								}
+						}
+
+						if(limit2 > 0 )
+						{
+								if(lab == '3' && limit1 < 0)
+								{
+										while(lab == '0')
+										{
+											cout<< "Variable ya definida vuelva a meter otro valor! "<< endl;
+											cin >> lab; 
+										}
+								} else 
+								{
+									lab = '0';
+								}
+						}
+
+						matrix[i][j] = lab;
+					}
+			}
+			
+			imprimir(matrix, size);
+			
+		} 
+		if(opc == 2)
+		{
+			int opc2 = 0;
+			cout<< "Ingrese su opcion! \n1.Decimal a Binario! \n2.Binario a Decimal! \n3.Suma de Binarios!" << endl;
+			cin>> opc2;
+			if(opc2 == 1)
+			{
+				cout<< "Ingrese un numero decimal!" << endl;
+				cin >> num1;
+				num2 = num1;
+		
+				while(num1 != 0)
+				{
+					remainder = num1%2;
+					num1 = num1/2;
+					maxtable++;
+				}
+				
+				maxtable--;
+				num1 = num2;
+				table[0] = table[maxtable];
+
+				while(num1 != 0)
+				{
+					remainder = num1%2;
+					num1 = num1/2;
+					table[ntable] = remainder;
+					ntable++;
+				}
+	
+				ntable--;
+				cout<< "Numero Binario: " << endl;
+
+				while(ntable >= 0)
+				{
+					cout<< table[ntable];
+					ntable--;
+				}
+				
+				cout<< endl;
+				
+			}
+
+			if(opc2 == 2)
+			{
+
+				long bin, remainderB, number;
+				long decimal = 0, base = 1;
+				
+				cout<< "Ingrese su numero Binario!" << endl;
+				cin >> number;
+				bin = number;
+			
+				while(number > 0)
+				{
+					remainderB = number % 10;
+					decimal = decimal + remainderB * base;
+					base = base * 2;
+					number = number / 10;
+				}
+					
+				cout<< "El numero Decimal es: " << decimal << endl;
+			}
+
+		}		
+		
+	return 0;
+}
+
+void imprimir(char** matrix, int size)
+{
+	for(int i = 0; i < size; i++)
+	{
+		for(int j = 0; j < size; j++)
+		{
+			cout << " [" << matrix[i][j] << "] "; 
+		}	
+		cout << endl;
+
+	}
+}
+
+
